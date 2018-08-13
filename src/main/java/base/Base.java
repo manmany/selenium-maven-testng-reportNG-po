@@ -33,13 +33,13 @@ public class Base implements ILogger {
 		WebElement element = null;
 		try {
 			element = new WebDriverWait(driver, globaltimeout).until(ExpectedConditions.presenceOfElementLocated(by));
-//			logger.info(this.getClass().getName() + by.toString() + "对象被访问");
+			logger.info(this.getClass().getName() + by.toString() + "对象被访问");
 			return element;
 		}catch (Exception e) {
-//			logger.error(element + " not found");
-//			String filename = this.getClass().getName();
-//			commond.shotscreen(driver, filename);
-//			logger.info("screenshot as "+ filename);
+			logger.error(element + " not found");
+			String filename = this.getClass().getName() + System.currentTimeMillis();
+			commond.shotscreen(driver, filename);
+			logger.info("screenshot as "+ filename);
 		}
 	
 		return element;
@@ -49,20 +49,20 @@ public class Base implements ILogger {
 		WebElement element = null;
 		try {
 			element = new WebDriverWait(driver, timeout).until(ExpectedConditions.presenceOfElementLocated(by));
-//			logger.info(this.getClass().getName() + by.toString() + "对象被访问");
+			logger.info(this.getClass().getName() + by.toString() + "对象被访问");
 			return element;
 		}catch (Exception e) {
-//			logger.error(element + " not found");
-			String filename = this.getClass().getName();
+			logger.error(element + " not found");
+			String filename = this.getClass().getName() + System.currentTimeMillis();
 			commond.shotscreen(driver, filename);
-//			logger.info("screenshot as "+ filename);
+			logger.info("screenshot as "+ filename);
 		}
 		
 		return element;
 	}
 	
 	// This is to print log for the beginning of the test case, as we usually run so many test cases as a test suite
-	public void startTest(String sTestCaseName) {
+	public static void startTest(String sTestCaseName) {
 		logger.info("****************************************************************************************");
 		 
 		logger.info("****************************************************************************************");
@@ -125,7 +125,7 @@ public class Base implements ILogger {
 	 /*
 	  * 获取测试方法名
 	  */
-	 public String getTestName(Class class1) {
+	 public static String getTestName(Class class1) {
 		 return  class1.getName() + "." + Thread.currentThread().getStackTrace()[2].getMethodName();	 
 	 }
 }

@@ -19,6 +19,10 @@ public class TestHome {
 	String test_url = "http://www.baidu.com";
 	String testName;
 
+	/**
+	 * 
+	 * Testing the findElement not by Factory page
+	 */
 	@Test(dataProvider="searchkeyword", groups="test")
 	public void TestBaidu(String keyword) {	
 		driver = new FirefoxDriver();
