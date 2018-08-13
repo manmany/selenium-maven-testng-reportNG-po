@@ -141,7 +141,7 @@
 			            </property>
 	
 			          </properties>
-			          <workingDirectory>test-output/</workingDirectory>
+			          <!-- <workingDirectory>test-output/</workingDirectory> -->
 			     </configuration>
 			     
 
