@@ -21,9 +21,9 @@ public class TestHome {
 
 	@Test(dataProvider="searchkeyword", groups="test")
 	public void TestBaidu(String keyword) {	
-		testName = this.getClass().getName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName();	 
 		driver = new FirefoxDriver();
 		homePage = new HomePage(driver);
+		testName = homePage.getTestName(this.getClass());
 		homePage.startTest(testName);
 		
 		homePage.openUrl(test_url);

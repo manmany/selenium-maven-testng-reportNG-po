@@ -125,7 +125,7 @@ public class Base implements ILogger {
 	 /*
 	  * 获取测试方法名
 	  */
-	 public String getTestName() {
-		 return  this.getClass().getName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName();	 
+	 public String getTestName(Class class1) {
+		 return  class1.getName() + "." + Thread.currentThread().getStackTrace()[2].getMethodName();	 
 	 }
 }
