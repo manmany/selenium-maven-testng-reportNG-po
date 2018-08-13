@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 
 public class commond {
 	public static void shotscreen(WebDriver driver, String filename) {
+		
 		//获取截图
 		File  screenshotFile =( (TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		//保存路径

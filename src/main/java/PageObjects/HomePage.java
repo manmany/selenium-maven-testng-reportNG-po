@@ -29,21 +29,8 @@ public class HomePage extends Base {
 	
 	//输入关键字，并点击查询
 	public void searchByKeyword(String keyword) {
-		keyword_input.sendKeys(keyword);
-		info("input keyword: " + keyword);
-		search_button.click();
-		info("Click search button");
+		type(keyword_input, keyword);
+		click(search_button);
 	}
 	
-	public void openUrl(String test_url) {
-		driver.get(test_url);
-		info("Open WebSite:"  + test_url);
-		driver.manage().window().maximize();
-		info("maximize the browser");
-	}
-	
-	public void close() {
-		driver.quit();
-		info("close browser");
-	}
 }

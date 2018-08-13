@@ -1,5 +1,7 @@
 package base;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,18 +11,24 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import base.commond;
+import bsh.org.objectweb.asm.Type;
 
 public class Base implements ILogger {
-	public WebDriver driver;
+	public static WebDriver driver;
+	public static String pageTitle;
+	public static String pageUrl;
 	
 	public static long globaltimeout = 5;
 	public final int TIMEOUT = 5;
 	
+	/*
+	 * 构造方法
+	 */
 	public Base() {
 
 	}
 	public Base(WebDriver driver) {
-		this.driver = driver;
+		Base.driver = driver;
 		PageFactory.initElements(new AjaxElementLocatorFactory(driver, TIMEOUT) , this);
 	}
 
@@ -36,13 +44,13 @@ public class Base implements ILogger {
 			logger.info(this.getClass().getName() + by.toString() + "对象被访问");
 			return element;
 		}catch (Exception e) {
-			logger.error(element + " not found");
-			String filename = this.getClass().getName() + System.currentTimeMillis();
+			logger.error( by.toString()+ " not found");
+			String filename = this.getClass().getName()+by.toString();
 			commond.shotscreen(driver, filename);
 			logger.info("screenshot as "+ filename);
+			return element;
 		}
-	
-		return element;
+		
 	}
 	
 	public WebElement findElement(By by, long timeout) {
@@ -52,26 +60,25 @@ public class Base implements ILogger {
 			logger.info(this.getClass().getName() + by.toString() + "对象被访问");
 			return element;
 		}catch (Exception e) {
-			logger.error(element + " not found");
+			logger.error(by.toString() + " not found");
 			String filename = this.getClass().getName() + System.currentTimeMillis();
 			commond.shotscreen(driver, filename);
 			logger.info("screenshot as "+ filename);
-		}
-		
-		return element;
+			return element;
+		}	
 	}
 	
 	// This is to print log for the beginning of the test case, as we usually run so many test cases as a test suite
 	public static void startTest(String sTestCaseName) {
-		logger.info("****************************************************************************************");
+		logger.info("***********************************************************************************************************************");
 		 
-		logger.info("****************************************************************************************");
+		logger.info("***********************************************************************************************************************");
 	 
 		logger.info("$$$$$$$$$$$$$$$$$$$$$                 "+sTestCaseName+ "       $$$$$$$$$$$$$$$$$$$$$$$$$");
 	 
-		logger.info("****************************************************************************************");
+		logger.info("***********************************************************************************************************************");
 	 
-		logger.info("****************************************************************************************");
+		logger.info("***********************************************************************************************************************");
 	 
 	}
 	
@@ -128,4 +135,81 @@ public class Base implements ILogger {
 	 public static String getTestName(Class class1) {
 		 return  class1.getName() + "." + Thread.currentThread().getStackTrace()[2].getMethodName();	 
 	 }
+	 
+	 /*
+	  * 获取页面的url
+	  */
+	 protected String getCurrentPageUrl() {
+		 pageUrl = driver.getCurrentUrl();
+		 info("Current page url is  " + pageUrl);
+		 return pageUrl;
+	 }
+	 
+	 /*
+	  * 获取当前页面的title
+	  */
+	 protected String getCurrentPageTitle() {
+		 pageTitle = driver.getTitle();
+		 info("Current page tile  is " + pageTitle);
+		 return pageTitle;
+	 }
+	 
+	 /*
+	  * 在文本框内输入字符
+	  */
+	 protected void type(WebElement element, String text) {
+		try {
+			if(element.isEnabled()) {
+				element.clear();
+				info("Clean the value if any in" + element.toString() + ".");
+				element.sendKeys(text);
+				info("Type value is:  "+ text + ".");
+			}
+		}catch (Exception e) {
+			error(e.getMessage() + ".");
+		}
+	}
+	 /*
+	  * 点击元素，这里☞点击鼠标左键
+	  */
+	 
+	 protected void click(WebElement element) {
+		try {
+			if (element.isEnabled()) {
+				element.click();			
+				info("Element " + element.toString() + "was clicked.");
+			}
+		} catch (Exception e) {
+			error(e.getMessage() + ".");
+		}
+	}
+	
+	 /*
+	  * 等待时间
+	  */
+	 public void waitload() {
+		 driver.manage().timeouts().implicitlyWait(globaltimeout, TimeUnit.SECONDS);
+		 info("Waiting " + globaltimeout + " seconds.");
+	 }
+	
+	 /*
+	  * 打开网址
+	  */
+	 public void openUrl(String test_url) {
+		 driver.get(test_url);
+		 info("Open WebSite:"  + test_url);
+	 }
+	 
+	 public void maximize() {
+		driver.manage().window().maximize();
+		info("maximize the browser");
+	}
+	 /*
+	  * 关闭浏览器
+	  */
+	 
+	 public void close() {
+		driver.close();
+		info("close browser");
+	}
 }
