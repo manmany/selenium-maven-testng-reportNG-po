@@ -18,6 +18,12 @@ public class TestHome2 {
 	 */
   @Test
   public void TestHome() throws InterruptedException {
+		String osType = System.getProperty("os.name");
+		System.out.println("Test on " + osType);
+		if(osType.contains("Windows")) {
+			System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+		}
+
 	  driver = new FirefoxDriver();
 	  homePage2  = new HomePage2(driver);	  
 	  homePage2.startTest(homePage2.getTestName(this.getClass()));

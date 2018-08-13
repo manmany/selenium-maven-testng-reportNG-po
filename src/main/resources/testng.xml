@@ -6,7 +6,8 @@
   
   	<classes>
   		
-  		<class name="com.man.test.TestBaidu"/>
+  		<class name="com.man.test.TestHome"/>
+  		<class name="com.man.test.TestHome2"/>
   	</classes>
   	
   </test> <!-- Test -->

@@ -25,6 +25,12 @@ public class TestHome {
 	 */
 	@Test(dataProvider="searchkeyword", groups="test")
 	public void TestBaidu(String keyword) {	
+		String osType = System.getProperty("os.name");
+		System.out.println("Test on " + osType);
+		if(osType.contains("Windows")) {
+			System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
+		}
+
 		driver = new FirefoxDriver();
 		homePage = new HomePage(driver);
 		testName = homePage.getTestName(this.getClass());
