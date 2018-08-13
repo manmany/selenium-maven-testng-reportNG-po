@@ -128,19 +128,20 @@
 			        </suiteXmlFiles>
 			        
 			        
-			     <!--  Using custom listeners and reporters -->
-			     <properties>
-		            <property>
-		              <name>usedefaultlisteners</name>
-		              <value>false</value> <!-- disabling default listeners is optional -->
-		            </property>
-		            
-		            <property>
-		              <name>listener</name>
-		              <value>org.uncommons.reportng.HTMLReporter</value>
-		            </property>
-
-		          </properties>
+				     <!--  Using custom listeners and reporters -->
+				     <properties>
+			            <property>
+			              <name>usedefaultlisteners</name>
+			              <value>false</value> <!-- disabling default listeners is optional -->
+			            </property>
+			            
+			            <property>
+			              <name>listener</name>
+			              <value>org.uncommons.reportng.HTMLReporter</value>
+			            </property>
+	
+			          </properties>
+			          <workingDirectory>test-output/</workingDirectory>
 			     </configuration>
 			     
 
